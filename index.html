@@ -53,14 +53,14 @@ button:active {
 #log {
   position: fixed;
   left: 10px;
-  bottom: 10px;
+  bottom: 160px; /* ボタンと被らないよう上に移動 */
   width: 45%;
   height: 150px;
   background: rgba(0,0,0,0.5);
   color: #0f0;
   font-size: 14px;
   overflow-y: auto;
-  z-index: 200;
+  z-index: 50; /* UIボタンより下に */
   padding: 10px;
   border: 1px solid #444;
 }
