@@ -1,150 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial‑scale=1.0, maximum‑scale=1.0, user‑scalable=no" />
-  <title>Ash Frontier (PWA Offline) vFix</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#000000">
-  <style>
-    :root {
-      --bg: #000;
-      --btn-bg: #222;
-      --btn-border: #aaa;
-      --btn-active-bg: #555;
-      --text: #fff;
-      --log-bg: rgba(0,0,0,0.5);
-      --log-color: #0f0;
-    }
-    html, body {
-      margin: 0;
-      padding: 0;
-      height:100vh;
-      width:100vw;
-      overflow:hidden;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, “Noto Sans JP”, sans-serif;
-      touch-action: manipulation;
-      user-select: none;
-    }
-    #gameCanvas {
-      position: fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      z-index:0;
-      pointer-events: none;
-      background: var(--bg);
-    }
-    #ui {
-      position: fixed;
-      bottom: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 30px;
-      z-index: 100;
-    }
-    button {
-      padding: 20px 50px;
-      font-size: 22px;
-      background: var(--btn-bg);
-      color: var(--text);
-      border: 2px solid var(--btn-border);
-      border-radius: 10px;
-      touch-action: manipulation;
-    }
-    button:active {
-      background: var(--btn-active-bg);
-    }
-    #log {
-      position: fixed;
-      left: 10px;
-      bottom: calc(5% + 90px); /* ボタン位置 + 安全マージン */
-      width: 45%;
-      max-height: 30%;
-      background: var(--log-bg);
-      color: var(--log-color);
-      font-size: 14px;
-      overflow-y: auto;
-      z-index: 50;
-      padding: 10px;
-      border: 1px solid #444;
-      box-sizing: border-box;
-    }
-    @media (max-width: 600px) {
-      button { padding: 16px 40px; font-size: 18px; }
-      #log { bottom: calc(5% + 70px); width: 90%; max-height: 25%; }
-    }
-  </style>
-</head>
-<body>
-  <canvas id="gameCanvas"></canvas>
-  <div id="ui">
-    <button id="startBtn">Start</button>
-    <button id="pauseBtn">Pause</button>
-    <button id="speedBtn">×3</button>
-  </div>
-  <div id="log"></div>
-
-  <script>
-    // Service Worker 登録
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('serviceWorker.js')
-        .then(() => console.log('SW registered'))
-        .catch(err => console.error('SW registration failed:', err));
-    }
-
-    const logBox = document.getElementById('log');
-    function log(msg) {
-      logBox.innerHTML += msg + '<br>';
-      logBox.scrollTop = logBox.scrollHeight;
-    }
-    log('🟢 PWA起動（修正版）');
-
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas(){
-      canvas.width = window.innerWidth * window.devicePixelRatio;
-      canvas.height = window.innerHeight * window.devicePixelRatio;
-      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    let running = false;
-    let speed = 1;
-    let frame = 0;
-
-    function gameLoop(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle = '#0f0';
-      ctx.font = (32 * window.devicePixelRatio) + 'px sans-serif';
-      ctx.fillText('Ash Frontier (Offline)', 40, 60 * window.devicePixelRatio);
-      ctx.fillText('Frame: ' + frame, 40, 100 * window.devicePixelRatio);
-      if (running) {
-        frame++;
-        if (frame % 30 === 0) log('探索中… ノード ' + Math.floor(frame/30));
-      }
-      setTimeout(gameLoop, (1000/30)/speed);
-    }
-
-    function bindTouch(el, fn){
-      el.addEventListener('touchstart', e => { e.preventDefault(); fn(); }, {passive:false});
-      el.addEventListener('pointerdown', fn, {passive:true});
-    }
-
-    const startBtn = document.getElementById('startBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
-    const speedBtn = document.getElementById('speedBtn');
-
-    bindTouch(startBtn, ()=>{ running=true; log('▶ 探索開始'); });
-    bindTouch(pauseBtn, ()=>{ running=false; log('⏸ 一時停止'); });
-    bindTouch(speedBtn, ()=>{ speed = (speed === 1 ? 3 : 1); log('⏩ 速度 ×' + speed); });
-
-    gameLoop();
-  </script>
-</body>
-</html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ash Frontier (PWA Offline) vFix2</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+<style>
+:root {
+  --bg: #000;
+  --btn-bg: #222;
+  --btn-border: #aaa;
+  --btn-active-bg: #555;
+  --text: #fff;
+  --log-bg: rgba(0,0,0,0.5);
+  --log-color: #0f0;
+}
+html, body {
+  margin:0; padding:0;
+  width:100vw; height:100vh;
+  overflow:hidden;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system,
