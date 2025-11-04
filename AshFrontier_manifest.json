@@ -1,7 +1,7 @@
 {
   "name": "Ash Frontier",
-  "short_name": "AshFrontier",
-  "start_url": "index.html",
+  "short_name": "AshFr",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
